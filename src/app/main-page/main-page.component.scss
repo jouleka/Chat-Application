@@ -1,0 +1,93 @@
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav {
+  background: linear-gradient(#2aa5d6, #aeb3ec);
+}
+
+mat-toolbar {
+  background: linear-gradient(#2aa5d6, #aeb3ec);
+  color: black;
+}
+
+mat-sidenav-cont {
+  background: linear-gradient(#2aa5d6, #aeb3ec);
+}
+
+
+.services {
+  padding-right: 30px;
+  color: black;
+}
+
+mat-icon {
+  color: black;
+}
+
+.chevron-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+  right: 0;
+  float: right;
+  position: absolute;
+}
+
+.chevron-button.rotated {
+  transform: rotate(180deg);
+}
+
+.secChevron-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(270deg);
+  right: 0;
+  float:right;
+
+}
+
+.secChevron-button.rotatedd {
+  transform: rotate(360deg);
+}
+
+
+h3 {
+  margin: auto
+}
+
+img {
+  background-color: transparent;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.user {
+  font-size: 30px;
+}
+
+.red-icon {
+  color: red;
+}
+
+.icon {
+  padding-right: 5%;
+}
+
+#infoStatus {
+  margin-bottom: 15%;
+}
+
+span {
+  color: black;
+}
+
+.avatar {
+  padding-bottom: 13px;
+}
+
+::ng-deep .customize {
+  background: linear-gradient(#2aa5d6, #aeb3ec);
+}
+
+.black-icon {
+  color: black;
+}

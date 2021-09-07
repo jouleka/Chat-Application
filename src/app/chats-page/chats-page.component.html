@@ -1,0 +1,221 @@
+<mat-grid-list cols="4" rowHeight="100%">
+  <mat-grid-tile colspan="1" rowspan="1">
+    <mat-grid-tile-header opened="true">
+      Chats
+      <!-- <mat-chip-list #chiplist aria-label="Find Friends">
+        <mat-chip *ngFor="let user of userList |filter:term"
+        [selectable]="selectable"
+        [removable]="removable">
+        {{user.name}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list> -->
+
+      <span class="ng2-filter" *ngIf="opened"><input type="text" [(ngModel)]="term">
+      </span>
+
+      <!-- <span class="ng2-filter" *ngIf="opened">
+        <tag-input (click)="getUserChattingWith()" [(ngModel)]="term"
+              [identifyBy]="'id'"
+              [displayBy]="'username'">
+          <tag-input-dropdown
+              [appendToBody]="true"
+              [showDropdownIfEmpty]="true"
+              [autocompleteItems]="userList"
+              [identifyBy]="'id'"
+              [displayBy]="'username'">
+          </tag-input-dropdown>
+        </tag-input>
+      </span> -->
+      <div class="filter">
+        <mat-icon class="chevron-button" [ngClass]="{ rotated: opened }" (click)="opened = !opened">
+          filter_list</mat-icon>
+      </div>
+    </mat-grid-tile-header>
+
+    <div class="body">
+      <mat-list class="overflow" favorite="true">
+        <h3>Find Friends</h3>
+        <mat-list-item *ngFor="let user of userList |filter:term">
+          <form (ngSubmit)="onCreationOfChatRoom(user.id)">
+            <button (ngSubmit)="onCreationOfChatRoom(user.id)" mat-button>
+              <ngx-avatar [name]="user.fullname" bgColor="white" fgColor="black" size="30" borderColor="green"
+                [round]="true">
+              </ngx-avatar>
+              {{user.username}}
+            </button>
+          </form>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <h3>My Chat List</h3>
+        <mat-list-item *ngFor="let user of usersChattingWithList">
+          <!-- <mat-icon (click)="onClick($event, user)" [ngClass]="{ rotated: favorite }" (click)="favorite = !favorite" class="star-button" matListIcon>star</mat-icon> -->
+          <!-- <mat-slide-toggle [checked]="user.favorite"></mat-slide-toggle> -->
+          <button (click)="getUserChattingWith(user.id)" mat-button>
+            <ngx-avatar [name]="user.fullname" bgColor="white" fgColor="black" size="30" borderColor="green" [round]="true">
+            </ngx-avatar>
+            {{user.username}}
+          </button>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+    <!-- <div class="user-list">
+      <div *ngFor="let user of userList |filter:term">
+
+        <form (ngSubmit)="onCreationOfChatRoom(user.id)">
+          <button (ngSubmit)="onCreationOfChatRoom(user.id)" mat-button>
+            <ngx-avatar [name]="user.fullname" bgColor="white" fgColor="black" size="30" borderColor="green"
+              [round]="true">
+            </ngx-avatar>
+            {{user.username}}
+          </button>
+        </form>
+
+      </div>
+    </div> -->
+
+  </mat-grid-tile>
+  <mat-grid-tile colspan="2" rowspan="1">
+
+    <!-- <app-chat-room  [openedChat]="openedChat" [userChattingWith]="userChattingWith"></app-chat-room> -->
+    <mat-grid-tile-header openedChat="true">
+      {{userChattingWith.username}}
+      <span class="message-filter" *ngIf="openedChat"><input type="text" [(ngModel)]="filterMessages"></span>
+
+      <div class="filter">
+        <mat-icon class="chevron-button sidenav-button" [ngClass]="{ rotated: openedChat }"
+          (click)="openedChat = !openedChat">
+          filter_list</mat-icon>
+          <button *ngIf="!isFavouriteChat" (click)="addUserToFavouritePage()" class="chevron-button" mat-button><mat-icon class="chevron-button" color="accent">grade</mat-icon></button>
+      </div>
+    </mat-grid-tile-header>
+
+    <!-- <div>
+      <mat-list class="overflow">
+        <mat-list-item *ngFor="let message of chatRoomMessages |filter:filterMessages">
+          <button [matMenuTriggerFor]="afterMessageClick" class="black-color" mat-button>{{message.text}}</button>
+          <p style="font-size: 13px; height: 10px">{{message.timeOfSendingMessage | date: 'h:mm'}}</p>
+          <ngx-avatar mat-list-avatar [name]="message.usernameOfSender" bgColor="white" fgColor="black" size="30" borderColor="green"
+          [round]="true">
+        </ngx-avatar>
+        <mat-menu class="customize" #afterMessageClick="matMenu" xPosition="after">
+          <button mat-button (click)="deleteMessageById(message.id)" color="warn">Delete</button>
+          <button mat-button (click)="softDeleteAMessage(message.id)" color="warn">Delete For Me</button>
+          <button mat-button (click)="updateMessageDialog(message.id)" class="yellow-color">Edit</button>
+        </mat-menu>
+        </mat-list-item>
+      </mat-list>
+    </div> -->
+
+    <div style="text-align:center">
+      <div class="chat-container">
+        <div class="chat">
+          <div class="message">
+
+            <mat-list class="overflow">
+              <mat-list-item *ngFor="let message of messageList |filter:filterMessages">
+                <button [matMenuTriggerFor]="afterMessageClick" class="black-color" (click)="getMessageById(message.id)" mat-button>{{message.text}}</button>
+                <p style="font-size: 13px; height: 10px">{{message.timeOfSendingMessage | date: 'h:mm'}}</p>
+                <ngx-avatar  class="text-avatar" mat-list-avatar [name]="message.usernameOfSender" bgColor="white" fgColor="black" size="30" borderColor="green"
+                [round]="true">
+              </ngx-avatar>
+              <mat-menu class="customize" #afterMessageClick="matMenu" xPosition="after">
+                <button mat-button *ngIf="isUserIdSameAsMessageSenderId" (click)="deleteMessageById(message.id)" color="warn">Delete</button>
+                <button mat-button (click)="softDeleteAMessage(message.id)" color="warn">Delete For Me</button>
+                <button mat-button *ngIf="isUserIdSameAsMessageSenderId" (click)="updateMessageDialog(message.id)" class="yellow-color">Edit</button>
+              </mat-menu>
+              </mat-list-item>
+            </mat-list>
+            <!-- <div *ngFor="let message of messageList">
+              {{message.text}} -->
+              <!-- <div *ngFor="let text of message">
+                {{ text }}
+              </div> -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-grid-tile-footer>
+      <button (click)="deleteChatRoomById()" color="warn" mat-button>Delete Chat</button>
+      <div class="filter">
+        <input id="input" maxlength="30" type="text" #input>
+        <button (click)="sendMessage(input.value)" mat-button color="accent">Send</button>
+      </div>
+    </mat-grid-tile-footer>
+
+
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1" rowspan="1">
+
+    <mat-grid-tile-header>
+      User Profile
+      <!-- <button mat-button color="warn">
+        Remove
+      </button> -->
+      <button (click)="getChatRoomsByAdminIdAndChatType()" [matMenuTriggerFor]="chatRoomsToJoin" class="add-button" mat-button color="accent">
+        Add
+      </button>
+      <mat-menu class="customize" #chatRoomsToJoin="matMenu" xPosition="after">
+        <div *ngFor="let chatRoom of chatRoomByAdminIdAndChatTypeList">
+          <button (click)="addUserToChatRoom(chatRoom.id)" mat-button>{{chatRoom.chatName}}</button>
+        </div>
+      </mat-menu>
+    </mat-grid-tile-header>
+
+    <div class="profile">
+      <div class="avatar">
+        <ngx-avatar [name]="userChattingWith.fullname" bgColor="white" fgColor="black" size="60" borderColor="green"
+          [round]="true">
+        </ngx-avatar>
+      </div>
+
+      <h3 style="text-align: center;">{{userChattingWith.fullname}}</h3>
+
+      <mat-list>
+        <h3 matLine>Interests and Hobbies</h3>
+        <mat-list-item *ngFor="let interests of userChattingWith.interests | slice:0:3; let i=index">
+          <mat-icon matListIcon>interests</mat-icon>
+          <p matLine>{{interests}}</p>
+        </mat-list-item>
+        <button [matMenuTriggerFor]="afterMenu" mat-button>
+        <mat-icon class="interests-icon">more_horiz</mat-icon>
+      </button>
+      <mat-menu class="customize" #afterMenu="matMenu" xPosition="after">
+        <mat-list-item *ngFor="let interests of userChattingWith.interests">
+          <p style="text-align: center;" matLine>{{interests}}</p>
+        </mat-list-item>
+      </mat-menu>
+        <mat-divider></mat-divider>
+
+        <h3 matLine>Languages</h3>
+        <mat-list-item *ngFor="let languages of userChattingWith.language | slice:0:3; let i=index">
+          <mat-icon matListIcon>language</mat-icon>
+          <p matLine>{{languages}}</p>
+        </mat-list-item>
+        <button [matMenuTriggerFor]="afterMenuLanguage" mat-button>
+          <mat-icon class="interests-icon">more_horiz</mat-icon>
+        </button>
+        <mat-menu class="customize" #afterMenuLanguage="matMenu" xPosition="after">
+          <mat-list-item *ngFor="let languages of userChattingWith.language">
+            <p style="text-align: center;" matLine>{{languages}}</p>
+          </mat-list-item>
+        </mat-menu>
+      </mat-list>
+
+      <div>
+        <h3>About</h3>
+        <mat-card class="card">
+          <mat-card-content>
+            <p>{{userChattingWith.description}}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+  </mat-grid-tile>
+</mat-grid-list>
+<!--
+<button mat-button (click)="goToChatPage()">Submit</button> -->

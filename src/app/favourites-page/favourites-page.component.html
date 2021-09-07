@@ -1,0 +1,61 @@
+<mat-grid-list cols="2" rowHeight="100%">
+
+<mat-grid-tile colspan="1" rowspan="1">
+
+  <mat-grid-tile-header opened="true">
+    Favourite Chats
+
+    <span class="ng2-filter" *ngIf="opened"><input type="text" [(ngModel)]="term">
+    </span>
+
+    <div class="filter">
+      <mat-icon class="chevron-button" [ngClass]="{ rotated: opened }" (click)="opened = !opened">
+        filter_list</mat-icon>
+    </div>
+  </mat-grid-tile-header>
+
+  <div>
+    <mat-list class="overflow">
+      <mat-list-item *ngFor="let user of fvUserList |filter:term">
+        <button (click)="removeUserFromFavouritesPage(user.id)" mat-button><mat-icon color="warn">remove_circle_outline</mat-icon></button>
+        <button (click)="goToChatPage()" mat-button>
+          <ngx-avatar [name]="user.fullname" bgColor="white" fgColor="black" size="30" borderColor="green" [round]="true">
+          </ngx-avatar>
+          {{user.username}}
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+</mat-grid-tile>
+
+<mat-grid-tile colspan="1" rowspan="1">
+
+  <mat-grid-tile-header openedGroups="true">
+    Favourite Groups
+
+    <span class="message-filter" *ngIf="openedGroups"><input type="text" [(ngModel)]="groupsTerm">
+    </span>
+
+    <div class="filter">
+      <mat-icon class="chevron-button" [ngClass]="{ rotated: openedGroups }" (click)="openedGroups = !openedGroups">
+        filter_list</mat-icon>
+    </div>
+  </mat-grid-tile-header>
+
+  <div>
+    <mat-list class="overflow">
+      <mat-list-item *ngFor="let group of fvGroupsList |filter:groupsTerm">
+        <button (click)="removeGroupFromFavouritesGroups(group.id)" mat-button><mat-icon color="warn">remove_circle_outline</mat-icon></button>
+        <button (click)="goToGroupsPage()" mat-button>
+          <ngx-avatar [name]="group.chatName" bgColor="white" fgColor="black" size="30" borderColor="green" [round]="true">
+          </ngx-avatar>
+          {{group.chatName}}
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+</mat-grid-tile>
+
+</mat-grid-list>

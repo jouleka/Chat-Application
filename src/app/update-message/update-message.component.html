@@ -1,0 +1,16 @@
+<div>
+  <h3>Edit Message</h3>
+
+  <form [formGroup]="messageForm" (ngSubmit)="onSubmit(messageForm.value)">
+    <div class="form">
+      <mat-form-field>
+        <mat-label>Message</mat-label>
+        <input type="text" matInput placeholder="message" required id="text" formControlName="text">
+      </mat-form-field>
+
+      <button mat-dialog-close mat-dialog-close="true" mat-flat-button color="accent" type="submit">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

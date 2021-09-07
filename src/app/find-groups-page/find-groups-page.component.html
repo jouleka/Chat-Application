@@ -1,0 +1,115 @@
+<mat-grid-list cols="4" rowHeight="100%">
+
+<mat-grid-tile colspan="1" rowspan="1">
+
+  <mat-grid-tile-header opened="true">
+    Find Public Groups to Join
+
+    <span class="ng2-filter" *ngIf="opened"><input type="text" [(ngModel)]="term">
+    </span>
+
+    <div class="filter">
+      <mat-icon class="chevron-button" [ngClass]="{ rotated: opened }" (click)="opened = !opened">
+        filter_list</mat-icon>
+  </div>
+  </mat-grid-tile-header>
+
+  <div class="body">
+    <mat-list class="overflow" favorite="true">
+      <mat-list-item *ngFor="let chatRoom of groupChatRoomList |filter:term">
+        <mat-icon (click)="onClick($event, chatRoom)" [ngClass]="{ rotated: favorite }" (click)="favorite = !favorite" class="star-button" matListIcon>star</mat-icon>
+        <button (click)="getChatRoomAfterClick(chatRoom.id)" mat-button>
+          <ngx-avatar [name]="chatRoom.chatName" bgColor="white" fgColor="black" size="30" borderColor="green" [round]="true">
+          </ngx-avatar>
+          {{chatRoom.chatName}}
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+</mat-grid-tile>
+
+<mat-grid-tile colspan="2" rowspan="1">
+
+  <mat-grid-tile-header openedChat="true">
+    {{chatRoomAfterClick.chatName}}
+    <span class="message-filter" *ngIf="openedChat"><input type="text" [(ngModel)]="filterMessages"></span>
+
+      <div class="filter">
+        <button (click)="joinPublicChatRoom()" mat-button class="chevron-button"><mat-icon class="chevron-button" color="accent">add</mat-icon></button>
+        <mat-icon class="chevron-button sidenav-button" [ngClass]="{ rotated: openedChat }"
+          (click)="openedChat = !openedChat">
+          filter_list</mat-icon>
+      </div>
+  </mat-grid-tile-header>
+
+  <div style="text-align:center">
+    <div class="chat-container">
+      <div class="chat">
+        <div class="message">
+
+    <mat-list class="overflow">
+      <mat-list-item *ngFor="let message of chatRoomMessages |filter:filterMessages">
+        <button class="black-color" mat-button>{{message.text}}</button>
+        <p style="font-size: 13px; height: 10px">{{message.timeOfSendingMessage | date: 'h:mm'}}</p>
+        <ngx-avatar mat-list-avatar [name]="message.usernameOfSender" bgColor="white" fgColor="black" size="30" borderColor="green"
+        [round]="true">
+      </ngx-avatar>
+      <!-- <mat-menu class="customize" #afterMessageClick="matMenu" xPosition="after">
+        <button mat-button color="warn">Delete</button>
+        <button mat-button class="yellow-color">Edit</button>
+      </mat-menu> -->
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>
+</div>
+  </div>
+
+  <mat-grid-tile-footer>
+    <button disabled mat-button color="warn">Delete Chat</button>
+    <div class="filter">
+      <input disabled id="input" maxlength="30" type="text" #input>
+      <button disabled (click)="sendMessage(input.value)" mat-button color="accent">Send</button>
+    </div>
+  </mat-grid-tile-footer>
+
+
+</mat-grid-tile>
+
+<mat-grid-tile colspan="1" rowspan="1">
+
+  <mat-grid-tile-header openedParticipantsPage="true">
+    Participants
+    <span class="message-filter" *ngIf="openedParticipantsPage"><input type="text" [(ngModel)]="filterParticipants"></span>
+
+    <div class="filter">
+      <mat-icon class="chevron-button sidenav-button" [ngClass]="{ rotated: openedParticipantsPage }"
+        (click)="openedParticipantsPage = !openedParticipantsPage">
+        filter_list</mat-icon>
+    </div>
+  </mat-grid-tile-header>
+
+  <div>
+    <mat-list class="overflow">
+      <h3>Admin User</h3>
+      <mat-list-item>
+        <ngx-avatar mat-list-avatar [name]="userByChatRoomId.fullname" bgColor="white" fgColor="black" size="30" borderColor="green"
+        [round]="true">
+      </ngx-avatar>
+      <p class="black-color" matLine>{{userByChatRoomId.username}}</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <h3>Users</h3>
+      <mat-list-item *ngFor="let participants of participantsList | filter:filterParticipants">
+        <ngx-avatar mat-list-avatar [name]="participants.fullname" bgColor="white" fgColor="black" size="30" borderColor="green"
+        [round]="true">
+      </ngx-avatar>
+      <p class="black-color" matLine>{{participants.username}}</p>
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+</mat-grid-tile>
+
+</mat-grid-list>

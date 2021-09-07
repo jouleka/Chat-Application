@@ -1,0 +1,35 @@
+<div>
+  <h3>Create A group</h3>
+
+  <form (ngSubmit)="createChatRoom()">
+    <div class="form">
+      <mat-form-field>
+        <mat-label>Group Name</mat-label>
+        <input type="text" matInput placeholder="group name based on topic" name="chatName" required id="chatName" [(ngModel)]="newChatRoom.chatName">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Chat Type</mat-label>
+        <mat-select [(ngModel)]="newChatRoom.chatType" required name="chatType">
+          <mat-option *ngFor="let chatType of chatTypeList" [value]="chatType">
+            {{ chatType }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Add User</mat-label>
+        <mat-select [(ngModel)]="newChatRoom.usersId" required name="usersId" multiple>
+          <mat-option *ngFor="let user of userList" [value]="user.id">
+            {{ user.username }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-dialog-close mat-dialog-close="true" (ngSubmit)="createChatRoom()" mat-flat-button color="accent"
+        type="submit">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

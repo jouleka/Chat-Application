@@ -1,0 +1,88 @@
+<div class="avatar">
+  <ngx-avatar [name]="this.user.fullname" bgColor="white" fgColor="black" size="80" borderColor="green" [round]="true">
+  </ngx-avatar>
+</div>
+<br>
+<div>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value)">
+    <div class="form">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="name" required type="text" id="name"
+          formControlName="name" />
+          <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Surname</mat-label>
+        <input matInput placeholder="surname" required type="text" id="surname"
+          formControlName="surname" />
+          <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="username" required type="text" id="username"
+          formControlName="username" />
+          <mat-icon matSuffix>self_improvement</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label >Email</mat-label>
+        <input matInput placeholder="pat@example.com" formControlName="email" name="email" id="email"
+          required type="email">
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="new-input">
+        <mat-label class="label">Password</mat-label>
+        <input matInput formControlName="password" name="password" [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <mat-icon matSuffix>lock
+          </mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Language Proficency</mat-label>
+        <mat-select formControlName="language" multiple>
+          <mat-option *ngFor="let language of languages" [value]="language">
+            {{ language }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Interests and Hobbys</mat-label>
+        <mat-select formControlName="interests" multiple>
+          <mat-option *ngFor="let newInterest of interests" [value]="newInterest">
+            {{ newInterest }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-card class="card">
+        <mat-card-content>
+      <mat-form-field  class="description">
+        <textarea maxlength = "25"  matInput placeholder="About You. Max 25 characters" type="text"
+        id="description" formControlName="description" cols="20" rows="5"></textarea>
+
+      </mat-form-field>
+    </mat-card-content>
+    </mat-card>
+    <br>
+    <div>
+      <button (click)="goToChatPage()" class="cancel" mat-flat-button color="warn">
+        Cancel
+      </button>
+
+      <button class="submit" mat-flat-button color="accent" type="submit">
+        Submit
+      </button>
+    </div>
+    </div>
+  </form>
+</div>

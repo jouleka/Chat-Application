@@ -1,0 +1,61 @@
+<div class="login-form">
+  <form (ngSubmit)="onSubmit()">
+    <h1>Sign Up</h1>
+    <div class="content">
+
+      <div class="input-field">
+        <mat-form-field class="new-input">
+          <mat-label class="label">Name</mat-label>
+          <input matInput required placeholder="your Name" [(ngModel)]="newUser.name" name="name" type="text">
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="input-field">
+        <mat-form-field class="new-input">
+          <mat-label class="label">Surname</mat-label>
+          <input matInput required placeholder="your Surname" [(ngModel)]="newUser.surname" name="surname" type="text">
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="input-field">
+        <mat-form-field class="new-input">
+          <mat-label class="label">Username</mat-label>
+          <input matInput required placeholder="username" [(ngModel)]="newUser.username" name="username" type="text">
+          <mat-icon matSuffix>self_improvement</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="input-field">
+        <mat-form-field class="new-input">
+          <mat-label class="label">Email</mat-label>
+          <input matInput placeholder="pat@example.com" [formControl]="email" [(ngModel)]="newUser.email" name="email"
+            required type="email">
+          <mat-icon matSuffix>email
+          </mat-icon>
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+
+      </div>
+
+      <div class="input-field">
+        <mat-form-field class="new-input">
+          <mat-label class="label">Password</mat-label>
+          <input matInput [(ngModel)]="newUser.password" name="password" [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-icon matSuffix>lock
+            </mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+    </div>
+    <div class="action">
+      <button mat-button (click)="goToLoginPage()">Cancel</button>
+      <button (ngSubmit)="onSubmit()" type="submit" mat-button>Sign in</button>
+    </div>
+  </form>
+</div>

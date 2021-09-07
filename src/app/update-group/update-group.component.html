@@ -1,0 +1,26 @@
+<div>
+  <h3>Update Group</h3>
+
+  <form [formGroup]="chatRoomForm" (ngSubmit)="onSubmit(chatRoomForm.value)">
+    <div class="form">
+      <mat-form-field>
+        <mat-label>Group Name</mat-label>
+        <input type="text" matInput placeholder="group name based on topic" name="chatName" required id="chatName" formControlName="chatName">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Chat Type</mat-label>
+        <mat-select formControlName="chatType" required name="chatType">
+          <mat-option *ngFor="let chatType of chatTypeList" [value]="chatType">
+            {{ chatType }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-dialog-close mat-dialog-close="true" mat-flat-button color="accent"
+        type="submit">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

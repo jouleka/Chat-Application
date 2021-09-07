@@ -1,0 +1,32 @@
+
+<div class="login-form">
+  <form (ngSubmit)="onSubmit()">
+    <h1>Login</h1>
+    <div class="content">
+      <div class="input-field">
+        <mat-form-field class="new-input">
+          <mat-label class="label">Username</mat-label>
+          <input matInput required placeholder="username" [(ngModel)]="newUser.username" name="username" type="text">
+          <mat-icon matSuffix>self_improvement</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="input-field">
+        <mat-form-field class="new-input">
+          <mat-label class="label">Password</mat-label>
+          <input matInput [(ngModel)]="newUser.password" name="password" [type]="hide ? 'password' : 'text'">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon><mat-icon matSuffix>lock
+            </mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <a href="#" class="link">Forgot Your Password?</a>
+    </div>
+    <div class="action">
+      <button (click)="goToRegisterPage()" mat-button>Register</button>
+      <button (ngSubmit)="onSubmit()" mat-button type="submit">Sign in</button>
+    </div>
+  </form>
+</div>

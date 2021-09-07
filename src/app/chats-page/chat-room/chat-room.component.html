@@ -1,0 +1,27 @@
+  <mat-grid-tile-header openedChat="true">
+    {{userChattingWith.username}}
+    <span class="message-filter" *ngIf="openedChat"><input type="text" [(ngModel)]="term"></span>
+
+    <div class="filter">
+      <mat-icon class="chevron-button sidenav-button" [ngClass]="{ rotated: openedChat }"
+        (click)="openedChat = !openedChat">
+        filter_list</mat-icon>
+    </div>
+  </mat-grid-tile-header>
+
+  <div style="text-align:center">
+    <div class="chat-container">
+      <div class="chat">
+        <div class="message"></div>
+      </div>
+    </div>
+  </div>
+
+  <mat-grid-tile-footer>
+    <div class="filter">
+      <input id="input" type="text" #input>
+      <button (click)="sendMessage(input.value)" mat-button color="accent">Send</button>
+    </div>
+  </mat-grid-tile-footer>
+
+

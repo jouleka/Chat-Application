@@ -1,0 +1,148 @@
+<mat-grid-list cols="4" rowHeight="100%">
+
+  <mat-grid-tile colspan="1" rowspan="1">
+    <mat-grid-tile-header opened="true">
+
+      Groups
+      <span class="ng2-filter" *ngIf="opened"><input type="text" [(ngModel)]="term">
+      </span>
+
+      <div class="filter">
+          <button (click)="createChatRoomDialog()" mat-button><mat-icon class="chevron-button" color="accent">add</mat-icon></button>
+          <mat-icon class="chevron-button" [ngClass]="{ rotated: opened }" (click)="opened = !opened">
+            filter_list</mat-icon>
+      </div>
+
+    </mat-grid-tile-header>
+
+    <div class="body">
+      <mat-list class="overflow" favorite="true">
+        <h3>Active Groups</h3>
+        <mat-list-item *ngFor="let chatRoom of groupChatRoomList |filter:term">
+          <mat-icon (click)="onClick($event, chatRoom)" [ngClass]="{ rotated: favorite }" (click)="favorite = !favorite" class="star-button" matListIcon>star</mat-icon>
+          <button (click)="getChatRoomAfterClick(chatRoom.id)" mat-button>
+            <ngx-avatar [name]="chatRoom.chatName" bgColor="white" fgColor="black" size="30" borderColor="green" [round]="true">
+            </ngx-avatar>
+            {{chatRoom.chatName}}
+          </button>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <h3>Inactive Groups</h3>
+        <mat-list-item *ngFor="let chatRoom of inactiveGroupChatRoomList |filter:term">
+          <mat-icon (click)="onClick($event, chatRoom)" [ngClass]="{ rotated: favorite }" (click)="favorite = !favorite" class="star-button" matListIcon>star</mat-icon>
+          <button (click)="getChatRoomAfterClick(chatRoom.id)" mat-button>
+            <ngx-avatar [name]="chatRoom.chatName" bgColor="white" fgColor="black" size="30" borderColor="green" [round]="true">
+            </ngx-avatar>
+            {{chatRoom.chatName}}
+          </button>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+    <!-- <div class="user-list">
+      <div *ngFor="let user of userList |filter:term">
+
+        <form (ngSubmit)="onCreationOfChatRoom(user.id)">
+          <button (ngSubmit)="onCreationOfChatRoom(user.id)" mat-button>
+            <ngx-avatar [name]="user.fullname" bgColor="white" fgColor="black" size="30" borderColor="green"
+              [round]="true">
+            </ngx-avatar>
+            {{user.username}}
+          </button>
+        </form>
+
+      </div>
+    </div> -->
+
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="2" rowspan="1">
+
+    <mat-grid-tile-header openedChat="true">
+
+      {{chatRoomAfterClick.chatName}}
+
+      <span class="message-filter" *ngIf="openedChat"><input type="text" [(ngModel)]="filterMessages"></span>
+
+      <div class="filter">
+        <mat-icon class="chevron-button sidenav-button" [ngClass]="{ rotated: openedChat }"
+          (click)="openedChat = !openedChat">
+          filter_list</mat-icon>
+          <button (click)="updateChatRoomGroupDialog()" *ngIf="isChatAdminIdEqualTouserId" class="chevron-button" mat-button><mat-icon class="newYellow-color">edit_note</mat-icon></button>
+          <button (click)="deleteGroupsDialog()" *ngIf="isChatAdminIdEqualTouserId" class="chevron-button" mat-button><mat-icon class="chevron-button" color="warn">delete_outline</mat-icon></button>
+          <button (click)="addGroupToFavouriteGroups()" class="chevron-button" mat-button><mat-icon class="chevron-button" color="accent">grade</mat-icon></button>
+      </div>
+
+    </mat-grid-tile-header>
+
+    <div style="text-align:center">
+      <div class="chat-container">
+        <div class="chat">
+          <div class="message">
+
+      <mat-list class="overflow">
+        <mat-list-item *ngFor="let message of messageList |filter:filterMessages">
+          <button [matMenuTriggerFor]="afterMessageClick" class="black-color" (click)="getMessageById(message.id)" mat-button>{{message.text}}</button>
+          <p style="font-size: 13px; height: 10px">{{message.timeOfSendingMessage | date: 'h:mm'}}</p>
+          <ngx-avatar mat-list-avatar [name]="message.usernameOfSender" bgColor="white" fgColor="black" size="30" borderColor="green"
+          [round]="true">
+        </ngx-avatar>
+        <mat-menu class="customize" #afterMessageClick="matMenu" xPosition="after">
+          <button [disabled]="ischatRoomActive" *ngIf="isUserIdSameAsMessageSenderId" (click)="deleteMessageById(message.id)" mat-button color="warn">Delete</button>
+          <button mat-button (click)="softDeleteAMessage(message.id)" color="warn">Delete For Me</button>
+          <button [disabled]="ischatRoomActive" *ngIf="isUserIdSameAsMessageSenderId" (click)="updateMessageDialog(message.id)" mat-button class="yellow-color">Edit</button>
+        </mat-menu>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+</div>
+</div>
+
+    <mat-grid-tile-footer>
+      <button *ngIf="!isChatAdminIdEqualTouserId" [disabled]="ischatRoomActive" (click)="leaveChatRoomGroup()" mat-button color="warn">Leave Chat</button>
+      <div class="filter">
+        <input [disabled]="ischatRoomActive" id="input" maxlength="30" type="text" #input>
+        <button [disabled]="ischatRoomActive" (click)="sendMessage(input.value)" mat-button color="accent">Send</button>
+      </div>
+    </mat-grid-tile-footer>
+
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="1" rowspan="1">
+
+    <mat-grid-tile-header openedParticipantsPage="true">
+      Participants
+      <span class="message-filter" *ngIf="openedParticipantsPage"><input type="text" [(ngModel)]="filterParticipants"></span>
+
+      <div class="filter">
+        <mat-icon class="chevron-button sidenav-button" [ngClass]="{ rotated: openedParticipantsPage }"
+          (click)="openedParticipantsPage = !openedParticipantsPage">
+          filter_list</mat-icon>
+      </div>
+    </mat-grid-tile-header>
+
+    <div>
+      <mat-list class="overflow">
+        <h3>Admin User</h3>
+        <mat-list-item>
+          <ngx-avatar mat-list-avatar [name]="userByChatRoomId.fullname" bgColor="white" fgColor="black" size="30" borderColor="green"
+          [round]="true">
+        </ngx-avatar>
+        <p class="black-color" matLine>{{userByChatRoomId.username}}</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <h3>Users</h3>
+        <mat-list-item *ngFor="let participants of participantsList | filter:filterParticipants">
+          <ngx-avatar mat-list-avatar [name]="participants.fullname" bgColor="white" fgColor="black" size="30" borderColor="green"
+          [round]="true">
+        </ngx-avatar>
+        <p class="black-color" matLine>{{participants.username}}</p>
+        <button *ngIf="isChatAdminIdEqualTouserId" (click)="removeUserFromGroupDialog(participants.id)" mat-button color="want"><mat-icon color="warn">remove_circle_outline</mat-icon></button>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+  </mat-grid-tile>
+
+</mat-grid-list>

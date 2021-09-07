@@ -1,0 +1,75 @@
+<div>
+  <mat-toolbar>
+
+    <h3>ChatFlux</h3>
+
+    <mat-nav-list>
+      <mat-list-item>
+        <div>
+          <mat-icon [matBadge]="notifications" [matBadgeHidden]="notifications === 0" matBadgePosition="below after"
+            matBadgeSize="small">notifications_none</mat-icon>
+        </div>
+      </mat-list-item>
+    </mat-nav-list>
+
+    <mat-nav-list>
+      <mat-list-item>
+        <div class="avatar">
+        <button [matMenuTriggerFor]="afterMenu" mat-button><mat-icon>account_circle</mat-icon></button>
+          <!-- <ngx-avatar [matMenuTriggerFor]="afterMenu" [name]="this.user.fullname" bgColor="white" fgColor="black" size="40" borderColor="green" [round]="true">
+          </ngx-avatar> -->
+          <mat-menu class="customize" #afterMenu="matMenu" xPosition="after">
+            <h3 style="text-align: center;">{{user.fullname}}</h3>
+            <button class="black-icon" (click)="goToEditPage()" mat-menu-item>
+              <mat-icon class="black-icon">edit_note</mat-icon>Edit
+            </button>
+            <button class="black-icon" (click)="userLogOut(this.userId)" mat-menu-item>
+              <mat-icon class="black-icon">logout</mat-icon>Logout
+            </button>
+          </mat-menu>
+        </div>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-toolbar>
+</div>
+
+
+<mat-sidenav-container autosize>
+  <mat-sidenav #sidenav mode="side" opened="true">
+
+    <mat-nav-list>
+
+      <mat-list-item>
+        <mat-icon mat-list-icon class="chevron-button sidenav-button" [ngClass]="{ rotated: opened }"
+          (click)="opened = !opened">chevron_right</mat-icon>
+        <span class="services" *ngIf="opened">Services</span>
+      </mat-list-item>
+
+      <mat-list-item (click)="goToFavouriteFriendsPage()">
+        <mat-icon mat-list-icon>star</mat-icon>
+        <span *ngIf="opened">Favourite Chats</span>
+      </mat-list-item>
+
+      <mat-list-item (click)="goToChatsPage()">
+        <mat-icon mat-list-icon>question_answer</mat-icon>
+        <span *ngIf="opened">Chats</span>
+      </mat-list-item>
+
+      <mat-list-item (click)="goToGroupsPage()">
+        <mat-icon mat-list-icon>groups</mat-icon>
+        <span *ngIf="opened">Groups</span>
+      </mat-list-item>
+
+      <mat-list-item (click)="goToFindGroupsPage()">
+        <mat-icon mat-list-icon>travel_explore</mat-icon>
+        <span *ngIf="opened">Find Groups</span>
+      </mat-list-item>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <!-- <app-chats-page></app-chats-page>
+  <p>heyy</p> -->
+  <router-outlet></router-outlet>
+</mat-sidenav-container>
+
+<!-- <router-outlet></router-outlet> -->

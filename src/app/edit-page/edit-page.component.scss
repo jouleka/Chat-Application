@@ -1,0 +1,74 @@
+.avatar {
+  text-align: center;
+  padding-top: 30px;
+}
+
+ngx-avatar {
+  display:inline-block;
+}
+
+table {
+  width: 90%;
+  margin: auto;
+}
+
+.position {
+  margin-left: 90.6%;
+}
+
+.actions {
+  padding-left: 1.3%;
+}
+
+.red-icon {
+  color: red;
+}
+
+.brown-icon {
+  color: rgb(255, 174, 0);
+}
+
+.green-icon {
+  color: rgb(32, 214, 32);
+}
+
+.mat-header-cell {
+  background: #313030;
+}
+
+.mat-cell {
+  background-color: rgb(59, 55, 55);
+}
+
+h3 {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.return {
+  margin-left: 90%;
+}
+
+.mat-success {
+  background-color: rgb(54, 146, 11);
+  color: #fff;
+}
+
+.card, .description {
+ width: 260px;
+}
+
+.cancel {
+  margin-right: 75px;
+}
+
+.submit {
+  margin-left: 75px;
+}
+

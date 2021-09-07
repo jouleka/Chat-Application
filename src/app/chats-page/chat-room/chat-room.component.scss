@@ -1,0 +1,112 @@
+mat-grid-tile {
+  background: linear-gradient(#2aa5d6, #aeb3ec);
+}
+
+.filter {
+  margin-left: auto !important;
+}
+
+.chevron-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+  right: 0;
+  float: right;
+}
+
+.chevron-button.rotated {
+  transform: rotate(90deg);
+}
+
+.ng2-filter {
+  margin: auto !important;
+  // height: 40px;
+  // padding-bottom: 5px !important;
+}
+
+.user-list {
+  margin-bottom: 50px !important;
+}
+
+.message-filter {
+  margin: auto !important;
+}
+
+.profile {
+  color: black;
+}
+
+.avatar {
+  text-align: center ;
+}
+
+ngx-avatar {
+  display:inline-block;
+}
+
+.star-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+  right: 0;
+  float: right;
+}
+
+.star-button.rotated {
+  transform: rotate(360deg);
+  color: yellow;
+}
+
+.interests-icon {
+  color: white;
+}
+
+.card {
+  background: linear-gradient(#2aa5d6, #aeb3ec);
+}
+
+.add-button {
+  margin-left: auto !important;
+}
+
+//websocket
+
+.chat-container{
+  height: 88vh;
+  width: 100vw;
+}
+.chat{
+  text-align: left;
+  margin: 0 auto;
+  width: 50%;
+  height: 100%;
+  border: 1px solid grey;
+}
+
+.footer{
+  background: #cccccc;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 0;
+  height: 10vh;
+  width: 100vw;
+}
+.send-button{
+  margin: 0 auto;
+  height: 70%;
+  width: 50%;
+}
+// input{
+//   float: right;
+//   height: 30px;
+//   border-radius: 15px;
+//   font-size: 1.5em;
+// }
+.send{
+  float: right;
+  // background: url("../assets/images/send.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 30px;
+  width: 30px;
+  margin-left: 5px;
+
+}
