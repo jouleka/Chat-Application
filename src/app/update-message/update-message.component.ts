@@ -1,17 +1,20 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { UntypedFormGroup, UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogClose } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChatRoomModel } from '../models/chat-room.model';
 import { MessageModel } from '../models/message.model';
 import { ChatRoomService } from '../services/chat-room.service';
 import { MessageService } from '../services/message.service';
 import { UserService } from '../services/user.service';
+import { MatFormField, MatLabel, MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-update-message',
-  templateUrl: './update-message.component.html',
-  styleUrls: ['./update-message.component.scss']
+    selector: 'app-update-message',
+    templateUrl: './update-message.component.html',
+    styleUrls: ['./update-message.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatButton, MatDialogClose]
 })
 export class UpdateMessageComponent implements OnInit {
 
@@ -20,7 +23,7 @@ export class UpdateMessageComponent implements OnInit {
   interestsLength!: any[];
   opened: boolean = false;
   messageId!: string;
-  messageForm!: FormGroup;
+  messageForm!: UntypedFormGroup;
   userList!: any[];
   message!: MessageModel;
   messageAndUserId: any [] = [];
@@ -30,7 +33,7 @@ export class UpdateMessageComponent implements OnInit {
   private userService: UserService,
   private activatedRouter: ActivatedRoute,
   private router: Router,
-  private fb: FormBuilder,
+  private fb: UntypedFormBuilder,
   private messageService: MessageService,
   private chatRoomService: ChatRoomService,
   private dialog: MatDialog) {
@@ -55,7 +58,7 @@ export class UpdateMessageComponent implements OnInit {
    }
 
    initForm() {
-     this.messageForm = new FormGroup({
+     this.messageForm = new UntypedFormGroup({
        text: this.fb.control('')
      });
    }

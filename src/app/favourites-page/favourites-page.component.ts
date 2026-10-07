@@ -2,11 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserModel } from '../models/user.model';
 import { UserService } from '../services/user.service';
+import { MatGridList, MatGridTile, MatGridTileText, MatGridTileHeaderCssMatStyler } from '@angular/material/grid-list';
+import { NgIf, NgClass, NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatIcon } from '@angular/material/icon';
+import { MatList, MatListItem } from '@angular/material/list';
+import { MatButton } from '@angular/material/button';
+import { AvatarComponent } from '../avatar.component';
+import { FilterPipe } from '../filter.pipe';
 
 @Component({
-  selector: 'app-favourites-page',
-  templateUrl: './favourites-page.component.html',
-  styleUrls: ['./favourites-page.component.scss']
+    selector: 'app-favourites-page',
+    templateUrl: './favourites-page.component.html',
+    styleUrls: ['./favourites-page.component.scss'],
+    imports: [MatGridList, MatGridTile, MatGridTileText, MatGridTileHeaderCssMatStyler, NgIf, FormsModule, MatIcon, NgClass, MatList, NgFor, MatListItem, MatButton, AvatarComponent, FilterPipe]
 })
 export class FavouritesPageComponent implements OnInit {
 

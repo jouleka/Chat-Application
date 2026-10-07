@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import * as SockJS from 'sockjs-client';
-import * as Stomp from 'stompjs';
-import * as $ from "jquery"
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
+import $ from 'jquery';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChatRoomService } from '../services/chat-room.service';
 import { MessageService } from '../services/message.service';
@@ -10,18 +10,27 @@ import { ChatRoomModel } from '../models/chat-room.model';
 import { InjectionToken } from '@angular/core';
 import { MatDialog, MatDialogClose, MatDialogConfig } from '@angular/material/dialog';
 import { GroupDialogBoxComponent } from '../group-dialog-box/group-dialog-box.component';
-import { ThrowStmt } from '@angular/compiler';
 import { MessageModel } from '../models/message.model';
 import { UserModel } from '../models/user.model';
 import { UpdateGroupComponent } from '../update-group/update-group.component';
 import { DeleteChatGroupDialogComponent } from '../delete-chat-group-dialog/delete-chat-group-dialog.component';
 import { RemoveUserDialogComponent } from '../remove-user-dialog/remove-user-dialog.component';
 import { UpdateMessageComponent } from '../update-message/update-message.component';
+import { MatGridList, MatGridTile, MatGridTileText, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MatLine } from '@angular/material/grid-list';
+import { NgIf, NgClass, NgFor, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatList, MatListItem, MatDivider } from '@angular/material/list';
+import { AvatarComponent } from '../avatar.component';
+import { MatMenuTrigger, MatMenu } from '@angular/material/menu';
+import { FilterPipe } from '../filter.pipe';
 
 @Component({
-  selector: 'app-groups-page',
-  templateUrl: './groups-page.component.html',
-  styleUrls: ['./groups-page.component.scss']
+    selector: 'app-groups-page',
+    templateUrl: './groups-page.component.html',
+    styleUrls: ['./groups-page.component.scss'],
+    imports: [MatGridList, MatGridTile, MatGridTileText, MatGridTileHeaderCssMatStyler, NgIf, FormsModule, MatButton, MatIcon, NgClass, MatList, NgFor, MatListItem, AvatarComponent, MatDivider, MatMenuTrigger, MatMenu, MatGridTileFooterCssMatStyler, MatLine, DatePipe, FilterPipe]
 })
 export class GroupsPageComponent implements OnInit {
 

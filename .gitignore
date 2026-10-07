@@ -43,3 +43,12 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Current framework caches, tests and generated Java builds
+.angular/
+test-results/
+playwright-report/
+**/target/
+.env
+.env.*
+!.env.example

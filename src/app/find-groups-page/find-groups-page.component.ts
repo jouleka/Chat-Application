@@ -1,3 +1,4 @@
+import { appendChatMessage } from '../message-rendering';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,14 +8,23 @@ import { UserModel } from '../models/user.model';
 import { ChatRoomService } from '../services/chat-room.service';
 import { MessageService } from '../services/message.service';
 import { UserService } from '../services/user.service';
-import * as SockJS from 'sockjs-client';
-import * as Stomp from 'stompjs';
-import * as $ from "jquery"
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
+import $ from 'jquery';
+import { MatGridList, MatGridTile, MatGridTileText, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MatLine } from '@angular/material/grid-list';
+import { NgIf, NgClass, NgFor, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatIcon } from '@angular/material/icon';
+import { MatList, MatListItem, MatDivider } from '@angular/material/list';
+import { MatButton } from '@angular/material/button';
+import { AvatarComponent } from '../avatar.component';
+import { FilterPipe } from '../filter.pipe';
 
 @Component({
-  selector: 'app-find-groups-page',
-  templateUrl: './find-groups-page.component.html',
-  styleUrls: ['./find-groups-page.component.scss']
+    selector: 'app-find-groups-page',
+    templateUrl: './find-groups-page.component.html',
+    styleUrls: ['./find-groups-page.component.scss'],
+    imports: [MatGridList, MatGridTile, MatGridTileText, MatGridTileHeaderCssMatStyler, NgIf, FormsModule, MatIcon, NgClass, MatList, NgFor, MatListItem, MatButton, AvatarComponent, MatGridTileFooterCssMatStyler, MatLine, MatDivider, DatePipe, FilterPipe]
 })
 export class FindGroupsPageComponent implements OnInit {
 
@@ -63,7 +73,7 @@ export class FindGroupsPageComponent implements OnInit {
     this.stompClient.connect({}, function(frame: any) {
       that.stompClient.subscribe("/chat", (message: any) => {
         if(message.body) {
-          $(".chat").append("<div class='message'>"+message.body+"</div>")
+          appendChatMessage(message.body)
           console.log(message.body);
         }
       });

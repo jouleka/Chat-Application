@@ -50,7 +50,7 @@ public class WebSocketController {
         return messageRepository.save(messageModel);
     }
 
-    @MessageMapping("/send/message")
+    @MessageMapping("/delete/message")
     @SendTo("/chat/public")
     public MessageModel onDeletionOfMessage(@Payload MessageModel messageModel){
 //        this.template.convertAndSend("/chat",  new SimpleDateFormat("hh:mm:ss").format(new Date())+"- "+ messageModel);

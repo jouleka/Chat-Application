@@ -1,4 +1,6 @@
 package com.web.chatapplication.models;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -15,7 +17,7 @@ import java.util.Map;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(onConstructor_ = @JsonCreator)
 @EqualsAndHashCode
 public class UserModel {
 
@@ -32,6 +34,7 @@ public class UserModel {
     private String username;
 
     @NonNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     private List<String> chatIdList = new ArrayList<>();

@@ -5,18 +5,53 @@ import { UserModel } from './../models/user.model';
 import { UserService } from './../services/user.service';
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as SockJS from 'sockjs-client';
-import * as Stomp from 'stompjs';
-import * as $ from 'jquery';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
+import $ from 'jquery';
 import { MessageService } from '../services/message.service';
 import { MessageModel } from '../models/message.model';
 import { ChatRoomModel } from '../models/chat-room.model';
 import { JsonpClientBackend } from '@angular/common/http';
+import { MatGridList, MatGridTile, MatGridTileText, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MatLine } from '@angular/material/grid-list';
+import { NgIf, NgClass, NgFor, SlicePipe, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatIcon } from '@angular/material/icon';
+import { MatList, MatListItem, MatDivider } from '@angular/material/list';
+import { MatButton } from '@angular/material/button';
+import { AvatarComponent } from '../avatar.component';
+import { MatMenuTrigger, MatMenu } from '@angular/material/menu';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { FilterPipe } from '../filter.pipe';
 
 @Component({
-  selector: 'app-chats-page',
-  templateUrl: './chats-page.component.html',
-  styleUrls: ['./chats-page.component.scss'],
+    selector: 'app-chats-page',
+    templateUrl: './chats-page.component.html',
+    styleUrls: ['./chats-page.component.scss'],
+    imports: [
+        MatGridList,
+        MatGridTile,
+        MatGridTileText,
+        MatGridTileHeaderCssMatStyler,
+        NgIf,
+        FormsModule,
+        MatIcon,
+        NgClass,
+        MatList,
+        NgFor,
+        MatListItem,
+        MatButton,
+        AvatarComponent,
+        MatDivider,
+        MatMenuTrigger,
+        MatMenu,
+        MatGridTileFooterCssMatStyler,
+        MatLine,
+        MatCard,
+        MatCardContent,
+        SlicePipe,
+        DatePipe,
+        FilterPipe,
+    ],
 })
 export class ChatsPageComponent implements OnInit, OnChanges {
   private serverUrl = 'http://localhost:8080/socket';

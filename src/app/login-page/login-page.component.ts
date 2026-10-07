@@ -1,18 +1,21 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserModel } from '../models/user.model';
 import { CommunicationService } from '../services/communication.service';
 import { UserService } from '../services/user.service';
-import * as SockJS from 'sockjs-client';
-import * as Stomp from 'stompjs';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
+import { MatFormField, MatLabel, MatInput, MatSuffix } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton, MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss']
+    selector: 'app-login-page',
+    templateUrl: './login-page.component.html',
+    styleUrls: ['./login-page.component.scss'],
+    imports: [FormsModule, MatFormField, MatLabel, MatInput, MatIcon, MatSuffix, MatIconButton, MatButton]
 })
 export class LoginPageComponent implements OnInit {
 
@@ -21,11 +24,11 @@ export class LoginPageComponent implements OnInit {
   user!: UserModel;
   userId!: any;
   userInfo!: any[];
-  userForm!: FormGroup;
+  userForm!: UntypedFormGroup;
   loginStatus: boolean = false;
 
   constructor(private router: Router, private toastr: ToastrService,
-      private userService: UserService, private fb: FormBuilder, private communicationService: CommunicationService,) { }
+      private userService: UserService, private fb: UntypedFormBuilder, private communicationService: CommunicationService,) { }
 
   ngOnInit(): void {
     console.log("hey");
@@ -63,7 +66,7 @@ export class LoginPageComponent implements OnInit {
 }
 
   initForm() {
-    this.userForm = new FormGroup({
+    this.userForm = new UntypedFormGroup({
       username: this.fb.control(''),
       password: this.fb.control(''),
     });

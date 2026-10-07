@@ -1,5 +1,7 @@
 package com.web.chatapplication.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(onConstructor_ = @JsonCreator)
 @EqualsAndHashCode
 public class InterestsModel {
 

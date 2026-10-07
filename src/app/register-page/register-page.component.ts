@@ -1,26 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserModel } from '../models/user.model';
 import { UserService } from '../services/user.service';
+import { MatFormField, MatLabel, MatInput, MatSuffix, MatError } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { NgIf } from '@angular/common';
+import { MatIconButton, MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-register-page',
-  templateUrl: './register-page.component.html',
-  styleUrls: ['./register-page.component.scss']
+    selector: 'app-register-page',
+    templateUrl: './register-page.component.html',
+    styleUrls: ['./register-page.component.scss'],
+    imports: [FormsModule, MatFormField, MatLabel, MatInput, MatIcon, MatSuffix, ReactiveFormsModule, NgIf, MatError, MatIconButton, MatButton]
 })
 export class RegisterPageComponent implements OnInit {
 
   hide = true;
-  email = new FormControl('', [Validators.required, Validators.email]);
+  email = new UntypedFormControl('', [Validators.required, Validators.email]);
   newUser: UserModel = new UserModel();
 
   constructor(
     private userService: UserService, private router: Router,
     private dialog: MatDialog,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private activateRouter: ActivatedRoute,
     private toastr: ToastrService,) { }
 

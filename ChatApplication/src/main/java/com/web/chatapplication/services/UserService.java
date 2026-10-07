@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.swing.text.html.Option;
@@ -22,6 +24,7 @@ import java.util.regex.Pattern;
 
 @Service
 public class UserService {
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
     @Autowired
     private UserRepository userRepository;
@@ -64,6 +67,7 @@ public class UserService {
 
         userModel.setFullname(userModel.getName() + " " + userModel.getSurname());
 
+        userModel.setPassword(passwordEncoder.encode(userModel.getPassword()));
         userRepository.insert(userModel);
         return new ResponseEntity<>(userModel, HttpStatus.OK);
     }
@@ -72,7 +76,11 @@ public class UserService {
         List<UserModel> userModelList = userRepository.findAll();
 
         for(UserModel user : userModelList) {
-            if(user.getUsername().equals(userModel.getUsername()) && user.getPassword().equals(userModel.getPassword())) {
+            if(user.getUsername().equals(userModel.getUsername())
+                    && userModel.getPassword() != null
+                    && user.getPassword() != null
+                    && user.getPassword().startsWith("$2")
+                    && passwordEncoder.matches(userModel.getPassword(), user.getPassword())) {
                 user.setStatus(true);
                 userRepository.save(user);
                 if(user.isStatus()) {
@@ -94,6 +102,11 @@ public class UserService {
     }
 
     public ResponseEntity<UserModel> editUser(UserModel userModel) {
+        Optional<UserModel> existing = userRepository.findById(userModel.getId());
+        if (existing.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        boolean changePassword = userModel.getPassword() != null && !userModel.getPassword().isBlank();
 
         String emailRegex = "[a-zA-Z]+@[a-zA-Z]+\\.[a-zA-Z]{2,3}";
         Pattern emailPattern = Pattern.compile(emailRegex);
@@ -113,14 +126,16 @@ public class UserService {
 
         String passRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
         Pattern passPattern = Pattern.compile(passRegex);
-        Matcher passMatcher = passPattern.matcher(userModel.getPassword());
+        Matcher passMatcher = passPattern.matcher(changePassword ? userModel.getPassword() : "");
 
-        if(!emailMatcher.matches() || !usernameMatcher.matches() || !passMatcher.matches() || !nameMatcher.matches() || !surnameMatcher.matches()
-            || userModel.getName().isEmpty() || userModel.getSurname().isEmpty() || userModel.getPassword().isEmpty() || userModel.getEmail().isEmpty()) {
+        if(!emailMatcher.matches() || !usernameMatcher.matches() || (changePassword && !passMatcher.matches()) || !nameMatcher.matches() || !surnameMatcher.matches()
+            || userModel.getName().isEmpty() || userModel.getSurname().isEmpty() || userModel.getEmail().isEmpty()) {
             return new ResponseEntity<>(userModel, HttpStatus.BAD_REQUEST);
         }
         userModel.setFullname(userModel.getName() + " " + userModel.getSurname());
 
+        userModel.setPassword(changePassword
+                ? passwordEncoder.encode(userModel.getPassword()) : existing.get().getPassword());
         userRepository.save(userModel);
         return new ResponseEntity<>(userModel, HttpStatus.OK);
     }

@@ -1,10 +1,11 @@
 import { CommunicationService } from './services/communication.service';
 import { Component, OnInit } from '@angular/core';
-import * as SockJS from 'sockjs-client';
-import * as Stomp from 'stompjs';
-import * as $ from "jquery"
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
+import $ from 'jquery';
 
 @Component({
+  standalone: false,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

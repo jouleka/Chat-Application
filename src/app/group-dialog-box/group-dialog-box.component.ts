@@ -1,16 +1,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogClose } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeleteChatGroupDialogComponent } from '../delete-chat-group-dialog/delete-chat-group-dialog.component';
 import { ChatRoomModel } from '../models/chat-room.model';
 import { ChatRoomService } from '../services/chat-room.service';
 import { MessageService } from '../services/message.service';
 import { UserService } from '../services/user.service';
+import { FormsModule } from '@angular/forms';
+import { MatFormField, MatLabel, MatInput } from '@angular/material/input';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { NgFor } from '@angular/common';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-group-dialog-box',
-  templateUrl: './group-dialog-box.component.html',
-  styleUrls: ['./group-dialog-box.component.scss']
+    selector: 'app-group-dialog-box',
+    templateUrl: './group-dialog-box.component.html',
+    styleUrls: ['./group-dialog-box.component.scss'],
+    imports: [FormsModule, MatFormField, MatLabel, MatInput, MatSelect, NgFor, MatOption, MatButton, MatDialogClose]
 })
 export class GroupDialogBoxComponent implements OnInit {
 

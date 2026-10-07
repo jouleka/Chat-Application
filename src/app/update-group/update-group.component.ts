@@ -1,16 +1,21 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogClose } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChatRoomModel } from '../models/chat-room.model';
 import { ChatRoomService } from '../services/chat-room.service';
 import { MessageService } from '../services/message.service';
 import { UserService } from '../services/user.service';
+import { MatFormField, MatLabel, MatInput } from '@angular/material/input';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { NgFor } from '@angular/common';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-update-group',
-  templateUrl: './update-group.component.html',
-  styleUrls: ['./update-group.component.scss']
+    selector: 'app-update-group',
+    templateUrl: './update-group.component.html',
+    styleUrls: ['./update-group.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatSelect, NgFor, MatOption, MatButton, MatDialogClose]
 })
 export class UpdateGroupComponent implements OnInit {
 
@@ -19,7 +24,7 @@ export class UpdateGroupComponent implements OnInit {
   interestsLength!: any[];
   opened: boolean = false;
   chatRoomId!: string;
-  chatRoomForm!: FormGroup;
+  chatRoomForm!: UntypedFormGroup;
   userList!: any[];
   chatRoom!: ChatRoomModel;
   chatTypeList: string[] = [
@@ -31,7 +36,7 @@ export class UpdateGroupComponent implements OnInit {
   private userService: UserService,
   private activatedRouter: ActivatedRoute,
   private router: Router,
-  private fb: FormBuilder,
+  private fb: UntypedFormBuilder,
   private messageService: MessageService,
   private chatRoomService: ChatRoomService,
   private dialog: MatDialog) {
@@ -50,7 +55,7 @@ export class UpdateGroupComponent implements OnInit {
   }
 
   initForm() {
-    this.chatRoomForm = new FormGroup({
+    this.chatRoomForm = new UntypedFormGroup({
       chatName: this.fb.control(''),
       chatType: this.fb.control(''),
     })

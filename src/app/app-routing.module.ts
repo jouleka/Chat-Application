@@ -1,37 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ChatRoomComponent } from './chats-page/chat-room/chat-room.component';
 
-import { ChatsPageComponent } from './chats-page/chats-page.component';
-import { EditPageComponent } from './edit-page/edit-page.component';
-import { FavouritesPageComponent } from './favourites-page/favourites-page.component';
-import { FindGroupsPageComponent } from './find-groups-page/find-groups-page.component';
-import { GroupsPageComponent } from './groups-page/groups-page.component';
-import { HomePageComponent } from './home-page/home-page.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { MainPageComponent } from './main-page/main-page.component';
-import { RegisterPageComponent } from './register-page/register-page.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'api/user/main-page', pathMatch: 'full' },
   { path: '', redirectTo: 'api/user/login', pathMatch: 'full' },
-  { path: 'api/user/login', component: LoginPageComponent },
-  { path: 'api/user/register', component: RegisterPageComponent },
-  // { path: 'api/user/main-page/:id', component: MainPageComponent},
+  { path: 'api/user/login', loadComponent: () => import('./login-page/login-page.component').then(module => module.LoginPageComponent) },
+  { path: 'api/user/register', loadComponent: () => import('./register-page/register-page.component').then(module => module.RegisterPageComponent) },
+  // { path: 'api/user/main-page/:id', loadComponent: () => import('./main-page/main-page.component').then(module => module.MainPageComponent)},
   {
     path: 'api/user/main-page/:id',
-    component: MainPageComponent,
+    loadComponent: () => import('./main-page/main-page.component').then(module => module.MainPageComponent),
     children: [
-      { path: 'home-page/:id', component: HomePageComponent },
+      { path: 'home-page/:id', loadComponent: () => import('./home-page/home-page.component').then(module => module.HomePageComponent) },
       {
         path: 'edit/:id',
-        component: EditPageComponent,
-        children: [{ path: 'chat-room/:id', component: ChatRoomComponent }],
+        loadComponent: () => import('./edit-page/edit-page.component').then(module => module.EditPageComponent),
+        children: [{ path: 'chat-room/:id', loadComponent: () => import('./chats-page/chat-room/chat-room.component').then(module => module.ChatRoomComponent) }],
       },
-      { path: 'chat-page/:id', component: ChatsPageComponent },
-      { path: 'groups-page/:id', component: GroupsPageComponent },
-      { path: 'find-groups/:id', component: FindGroupsPageComponent },
-      { path: 'favourites-page/:id', component: FavouritesPageComponent },
+      { path: 'chat-page/:id', loadComponent: () => import('./chats-page/chats-page.component').then(module => module.ChatsPageComponent) },
+      { path: 'groups-page/:id', loadComponent: () => import('./groups-page/groups-page.component').then(module => module.GroupsPageComponent) },
+      { path: 'find-groups/:id', loadComponent: () => import('./find-groups-page/find-groups-page.component').then(module => module.FindGroupsPageComponent) },
+      { path: 'favourites-page/:id', loadComponent: () => import('./favourites-page/favourites-page.component').then(module => module.FavouritesPageComponent) },
     ],
   },
 ];

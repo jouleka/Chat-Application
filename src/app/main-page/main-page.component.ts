@@ -1,13 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserModel } from '../models/user.model';
 import { UserService } from '../services/user.service';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatNavList, MatListItem } from '@angular/material/list';
+import { MatIcon } from '@angular/material/icon';
+import { MatBadge } from '@angular/material/badge';
+import { MatButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatSidenavContainer, MatSidenav } from '@angular/material/sidenav';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-main-page',
-  templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.scss']
+    selector: 'app-main-page',
+    templateUrl: './main-page.component.html',
+    styleUrls: ['./main-page.component.scss'],
+    imports: [MatToolbar, MatNavList, MatListItem, MatIcon, MatBadge, MatButton, MatMenuTrigger, MatMenu, MatMenuItem, MatSidenavContainer, MatSidenav, NgClass, NgIf, RouterOutlet]
 })
 export class MainPageComponent implements OnInit {
 

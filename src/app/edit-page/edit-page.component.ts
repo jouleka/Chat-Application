@@ -1,14 +1,22 @@
 import { UserModel } from './../models/user.model';
 import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AvatarComponent } from '../avatar.component';
+import { MatFormField, MatLabel, MatInput, MatSuffix, MatError } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { NgIf, NgFor } from '@angular/common';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatCard, MatCardContent } from '@angular/material/card';
 
 @Component({
-  selector: 'app-edit-page',
-  templateUrl: './edit-page.component.html',
-  styleUrls: ['./edit-page.component.scss']
+    selector: 'app-edit-page',
+    templateUrl: './edit-page.component.html',
+    styleUrls: ['./edit-page.component.scss'],
+    imports: [AvatarComponent, FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatIcon, MatSuffix, NgIf, MatError, MatIconButton, MatSelect, NgFor, MatOption, MatCard, MatCardContent, MatButton]
 })
 export class EditPageComponent implements OnInit {
 
@@ -16,8 +24,8 @@ export class EditPageComponent implements OnInit {
   userId!: any;
   newUser: UserModel = new UserModel();
   user!: UserModel;
-  userForm!: FormGroup;
-  email = new FormControl('', [Validators.required, Validators.email]);
+  userForm!: UntypedFormGroup;
+  email = new UntypedFormControl('', [Validators.required, Validators.email]);
   hide = true;
   languages: string[] = [
     'Abkhazian',
@@ -376,7 +384,7 @@ export class EditPageComponent implements OnInit {
   ]
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private toastr: ToastrService,
     private userService: UserService,
     private activatedRouter: ActivatedRoute,
@@ -409,7 +417,7 @@ export class EditPageComponent implements OnInit {
   }
 
   initForm() {
-    this.userForm = new FormGroup({
+    this.userForm = new UntypedFormGroup({
       name: this.fb.control(''),
       surname: this.fb.control(''),
       username: this.fb.control(''),
@@ -427,7 +435,7 @@ export class EditPageComponent implements OnInit {
       surname: this.user.surname,
       username: this.user.username,
       email: this.user.email,
-      password: this.user.password,
+      password: '',
       language: this.user.language,
       interests: this.user.interests,
       description: this.user.description
