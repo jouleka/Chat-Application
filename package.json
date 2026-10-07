@@ -34,7 +34,7 @@
     "@types/jquery": "^3.5.6",
     "@types/node": "24.5.2",
     "@types/sockjs-client": "^1.5.1",
-    "typescript": "5.9.3",
+    "typescript": "7.0.2",
     "@angular/build": "21.2.26",
     "vitest": "4.1.11",
     "jsdom": "27.4.0"
