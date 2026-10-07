@@ -142,7 +142,7 @@ public class MessageService {
 //            }
 //        }
 
-        return messageRepository.saveAll(messageModelList);
+        return messageModelList;
     }
 
     public ResponseEntity<MessageModel> updateMessage(String userId ,MessageModel messageModel) {

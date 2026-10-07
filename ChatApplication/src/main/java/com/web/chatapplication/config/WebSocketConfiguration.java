@@ -13,7 +13,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
         @Override
         public void registerStompEndpoints(StompEndpointRegistry registry) {
             registry.addEndpoint("/socket")
-                    .setAllowedOrigins("http://localhost:4200/")
+                    .setAllowedOrigins("http://localhost:4200", "http://127.0.0.1:4200")
                     .withSockJS();
         }
 

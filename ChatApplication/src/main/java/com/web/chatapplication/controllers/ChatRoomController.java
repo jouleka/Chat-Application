@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:4200", "http://127.0.0.1:4200"})
 @RestController
 @RequestMapping("/api/chat-room")
 public class ChatRoomController {
@@ -62,12 +62,12 @@ public class ChatRoomController {
         return chatRoomService.getChatRoomsByAdminIdAndChatType(id, userChattingWithId);
     }
 
-    @GetMapping("/addUserToChatRoom/roomId/{roomId}/userChattingWithId/{userChattingWithId}")
+    @PostMapping("/addUserToChatRoom/roomId/{roomId}/userChattingWithId/{userChattingWithId}")
     public void addUserToChatRoom(@PathVariable String roomId, @PathVariable String userChattingWithId){
         chatRoomService.addUserToChatRoom(roomId, userChattingWithId);
     }
 
-    @GetMapping("/removeUser/roomId/{roomId}/currentUserId/{currentUserid}/participantId/{participantId}")
+    @PostMapping("/removeUser/roomId/{roomId}/currentUserId/{currentUserid}/participantId/{participantId}")
     public void removeUserFromChatRoom(@PathVariable String roomId, @PathVariable String currentUserid, @PathVariable String participantId) {
         chatRoomService.removeUserFromChatRoom(roomId, currentUserid, participantId);
     }
@@ -77,7 +77,7 @@ public class ChatRoomController {
         return chatRoomService.listPublicGroups(userId);
     }
 
-    @GetMapping("/joinPublicChatRoom/roomId/{roomId}/userId/{userId}")
+    @PostMapping("/joinPublicChatRoom/roomId/{roomId}/userId/{userId}")
     public void joinPublicChatRoom(@PathVariable String roomId, @PathVariable String userId) {
         chatRoomService.joinPublicChatRoom(roomId, userId);
     }

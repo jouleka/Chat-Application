@@ -30,7 +30,7 @@ export class MessageService {
   }
 
   softDeleteAMessage(messageId: string, userId: string): Observable<any> {
-    return this.http.get<any>(baseUrl + '/softDeleteMessage/' + messageId + "/userId/" + userId);
+    return this.http.post<any>(baseUrl + '/softDeleteMessage/' + messageId + "/userId/" + userId, {});
   }
 
   updateMessage(messageId: string, userId: string, message: MessageModel): Observable<any> {

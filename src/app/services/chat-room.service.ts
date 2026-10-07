@@ -46,11 +46,11 @@ export class ChatRoomService {
   }
 
   addUserToChatRoom(roomId: string, userChattingWithId: string): Observable<any> {
-    return this.http.get<any>(baseUrl + '/addUserToChatRoom/roomId/' + roomId + "/userChattingWithId/" + userChattingWithId);
+    return this.http.post<any>(baseUrl + '/addUserToChatRoom/roomId/' + roomId + "/userChattingWithId/" + userChattingWithId, {});
   }
 
   removeUserFromChatRoom(roomId: string, currentUserId: string, participantId: string): Observable<any> {
-    return this.http.get<any>(baseUrl + '/removeUser/roomId/' + roomId + "/currentUserId/" + currentUserId + "/participantId/" + participantId);
+    return this.http.post<any>(baseUrl + '/removeUser/roomId/' + roomId + "/currentUserId/" + currentUserId + "/participantId/" + participantId, {});
   }
 
   getPublicGroups(id: string): Observable<any> {
@@ -58,7 +58,7 @@ export class ChatRoomService {
   }
 
   joinPublicChatRoom(roomId: string, userId: string): Observable<any> {
-    return this.http.get<any>(baseUrl + '/joinPublicChatRoom/roomId/' + roomId + "/userId/" + userId);
+    return this.http.post<any>(baseUrl + '/joinPublicChatRoom/roomId/' + roomId + "/userId/" + userId, {});
   }
 
   deleteChatRoomGroup(roomId: string): Observable<any> {

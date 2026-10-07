@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:4200", "http://127.0.0.1:4200"})
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -58,7 +58,7 @@ public class UserController {
         return userService.listAllUsers(id);
     }
 
-    @GetMapping("/list-chatting-users/{id}/current-user/{currentUserId}")
+    @PostMapping("/list-chatting-users/{id}/current-user/{currentUserId}")
     public List<UserModel> listUserChattingWith(@PathVariable String id, @PathVariable String currentUserId) {
         return userService.chattingList(id, currentUserId);
     }
@@ -94,17 +94,17 @@ public class UserController {
         return userService.returnUserByChatRoomAdminId(roomId);
     }
 
-    @GetMapping("/leaveChatGroup/roomId/{roomId}/currentUserId/{userId}")
+    @PostMapping("/leaveChatGroup/roomId/{roomId}/currentUserId/{userId}")
     public void leaveChatRoomGroup(@PathVariable String roomId, @PathVariable String userId) {
         userService.leaveChatGroup(roomId, userId);
     }
 
-    @GetMapping("/addToFavourite/currentUser/{currentUserId}/friendId/{friendId}")
+    @PostMapping("/addToFavourite/currentUser/{currentUserId}/friendId/{friendId}")
     public void addUserToFavouritePage(@PathVariable String currentUserId, @PathVariable String friendId) {
         userService.addUserToFavouritePage(currentUserId, friendId);
     }
 
-    @GetMapping("/addGroupToFavourite/currentUser/{currentUserId}/friend/{friendId}")
+    @PostMapping("/addGroupToFavourite/currentUser/{currentUserId}/friend/{friendId}")
     public void addChatGroupToFavouritesPage(@PathVariable String currentUserId, @PathVariable String friendId) {
         userService.addChatGroupToFavouritesPage(currentUserId, friendId);
     }
@@ -114,7 +114,7 @@ public class UserController {
         return userService.getFavouriteGroups(userId);
     }
 
-    @GetMapping("/removeUserFromFavouriteGroups/user/{userId}/friend/{friendId}")
+    @PostMapping("/removeUserFromFavouriteGroups/user/{userId}/friend/{friendId}")
     public void removeUserFromFavouriteGroups(@PathVariable String userId, @PathVariable String friendId) {
         userService.removeUserFromFavouriteGroupsList(userId, friendId);
     }
@@ -124,7 +124,7 @@ public class UserController {
         return userService.getFavouriteChats(userId);
     }
 
-    @GetMapping("/removeUserFromFavouriteChats/user/{userId}/friend/{friendId}")
+    @PostMapping("/removeUserFromFavouriteChats/user/{userId}/friend/{friendId}")
     public void removeUserFromFavouriteChats(@PathVariable String userId, @PathVariable String friendId) {
         userService.removeUserFromFavouritesList(userId, friendId);
     }

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:4200", "http://127.0.0.1:4200"})
 @RestController
 @RequestMapping("/api/message")
 public class MessageController {
@@ -45,7 +45,7 @@ public class MessageController {
         messageService.deleteMessageIfChatRoomIsDeleted(id);
     }
 
-    @GetMapping("/softDeleteMessage/{messageId}/userId/{currentUserId}")
+    @PostMapping("/softDeleteMessage/{messageId}/userId/{currentUserId}")
     public void softDeleteAMessage(@PathVariable String messageId, @PathVariable String currentUserId) {
         messageService.softDeleteAMessage(messageId, currentUserId);
     }

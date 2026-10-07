@@ -38,7 +38,7 @@ export class UserService {
   }
 
   getUsersChattingWith(id: string, currentUserId: string): Observable<any> {
-    return this.http.get<any>(baseUrl + '/list-chatting-users/' + id + "/current-user/" + currentUserId);
+    return this.http.post<any>(baseUrl + '/list-chatting-users/' + id + "/current-user/" + currentUserId, {});
   }
 
   listChattingUsers(id: string): Observable<any> {
@@ -66,7 +66,7 @@ export class UserService {
   }
 
   leaveChatRoomGroup(roomId: string, currentUserId: string): Observable<any> {
-    return this.http.get<any>(baseUrl + '/leaveChatGroup/roomId/' + roomId + "/currentUserId/" + currentUserId);
+    return this.http.post<any>(baseUrl + '/leaveChatGroup/roomId/' + roomId + "/currentUserId/" + currentUserId, {});
   }
 
   listAllUsersOnGroupsPage(id:string): Observable<any> {
@@ -74,11 +74,11 @@ export class UserService {
   }
 
   addUserToFavouritePage(currentUserId: string, friendId: string): Observable<any> {
-    return this.http.get<any>(baseUrl + '/addToFavourite/currentUser/' + currentUserId + "/friendId/" + friendId);
+    return this.http.post<any>(baseUrl + '/addToFavourite/currentUser/' + currentUserId + "/friendId/" + friendId, {});
   }
 
   addUserToFavouriteGroups(currentUserId: string, friendId: string): Observable<any> {
-    return this.http.get<any>(baseUrl + '/addGroupToFavourite/currentUser/' + currentUserId + "/friend/" + friendId);
+    return this.http.post<any>(baseUrl + '/addGroupToFavourite/currentUser/' + currentUserId + "/friend/" + friendId, {});
   }
 
   getFavouriteGroups(userId: string): Observable<any> {
@@ -90,11 +90,11 @@ export class UserService {
   }
 
   removeUserFromFavouritesGroups(userId: string, friendId: string): Observable<any> {
-    return this.http.get<any>(baseUrl + '/removeUserFromFavouriteGroups/user/' + userId + "/friend/" + friendId);
+    return this.http.post<any>(baseUrl + '/removeUserFromFavouriteGroups/user/' + userId + "/friend/" + friendId, {});
   }
 
   removeUserFromFavouritesPage(userId: string, friendId: string): Observable<any> {
-    return this.http.get<any>(baseUrl + '/removeUserFromFavouriteChats/user/' + userId + "/friend/" + friendId);
+    return this.http.post<any>(baseUrl + '/removeUserFromFavouriteChats/user/' + userId + "/friend/" + friendId, {});
   }
 
 }

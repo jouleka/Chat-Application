@@ -320,7 +320,7 @@ public class UserService {
         Optional<UserModel> userModel = userRepository.findById(userId);
 
         chatRoomModelList.removeIf(chatRoomModel -> !userModel.get().getFavouriteGroups().contains(chatRoomModel.getId()));
-        return chatRoomRepository.saveAll(chatRoomModelList);
+        return chatRoomModelList;
     }
 
     public void removeUserFromFavouriteGroupsList(String currentUserId, String friendId) {
@@ -335,7 +335,7 @@ public class UserService {
         Optional<UserModel> userModel = userRepository.findById(userId);
 
         userModelList.removeIf(user -> !userModel.get().getFavouriteChats().contains(user.getId()));
-       return userRepository.saveAll(userModelList);
+       return userModelList;
     }
 
     public void removeUserFromFavouritesList(String currentUserId, String friendId) {
