@@ -32,7 +32,7 @@
     "@angular/cli": "21.2.26",
     "@angular/compiler-cli": "21.2.25",
     "@types/jquery": "^3.5.6",
-    "@types/node": "24.5.2",
+    "@types/node": "26.6.4",
     "@types/sockjs-client": "^1.5.1",
     "typescript": "5.9.3",
     "@angular/build": "21.2.26",
